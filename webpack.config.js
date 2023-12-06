@@ -1,8 +1,7 @@
-// webpack.config.js
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -19,7 +18,10 @@ module.exports = {
     ],
   },
   devServer: {
-    static: path.resolve(__dirname, 'dist'),
+    static: path.resolve(__dirname, 'dist'), // 변경된 부분
     port: 3000,
+  },
+  resolve: {
+    extensions: ['.js'],
   },
 };
