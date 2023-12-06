@@ -1,3 +1,4 @@
+//* 우주 사진을 
 function getAstronomyPicture() {
     const apiKey = 'kPaqXTtaN1YmenxQ6wEdzTovcXk8iv7fa7EMS9c8';
     const dateInput = document.getElementById('datepicker').value;
@@ -19,8 +20,7 @@ function displayAstronomyInfo(data) {
     const astronomyInfoContainer = document.getElementById('astronomyInfo');
     astronomyInfoContainer.innerHTML = `
         <h2>${data.title}</h2>
-        <p>Date: ${data.date}</p>
-        <p>${data.explanation}</p>
-        <img src="${data.url}" alt="${data.title}" style="max-width: 100%;">
+
+        <img src="${data.url}" alt="${data.title}" style="max-width: 70%;">
     `;
 }
