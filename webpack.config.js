@@ -1,3 +1,4 @@
+// webpack.config.js
 const path = require('path');
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: './dist',
+    static: path.resolve(__dirname, 'dist'),
     port: 3000,
   },
 };
