@@ -1,5 +1,15 @@
-// app.js
-function component(elementNode, attributes, children) {
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA API Project</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+  function component(elementNode, attributes, children) {
   let elementStr = `<${elementNode}`;
   for (let key in attributes) {
     elementStr += ` ${key}="${attributes[key]}"`;
@@ -18,37 +28,45 @@ function component(elementNode, attributes, children) {
   return elementStr;
 }
 
-window.addEventListener('hashchange', () => {
+function handleHashChange() {
   const contentDiv = document.getElementById('root');
   const hash = window.location.hash.substr(1);
 
   switch (hash) {
     case 'page1':
-      contentDiv.innerHTML = component('h1', {}, ['오늘의 천문학', component('button', { onclick: 'changePage("page2")' }, ['시작하기'])]);
+      contentDiv.innerHTML = component('h1', {}, ['오늘의 천문학', component('button', { onclick: changePage.bind(null, 'page2') }, ['시작하기'])]);
       break;
     case 'page2':
       contentDiv.innerHTML = component('div', {}, [
         component('h1', {}, ['오늘의 천문학']),
         component('input', { type: 'date' }),
-        component('button', { onclick: 'fetchData()' }, ['데이터 가져오기']),
+        component('button', { onclick: fetchData }, ['데이터 가져오기']),
         component('div', { id: 'result' })
       ]);
       break;
     default:
       contentDiv.innerHTML = component('h1', {}, [
         '반갑습니다. 접속할 때 보이는 페이지(처럼보이는) element입니다.',
-  ])}
-});
+      ])
+  }
+}
 
 // 초기 페이지 설정
-window.location.hash = 'page1';
+if (!window.location.hash) {
+  window.location.hash = 'page1';
+}
 
 // 페이지 전환 함수
 function changePage(page) {
   window.location.hash = page;
 }
 
-function fetchData() {
+window.addEventListener('hashchange', handleHashChange);
+
+// 페이지 로드 시 초기 설정
+document.addEventListener('DOMContentLoaded', handleHashChange);
+
+const fetchData = function fetchData() {
   // NASA API 키
   const apiKey = 'kPaqXTtaN1YmenxQ6wEdzTovcXk8iv7fa7EMS9c8';
   // 오늘의 날짜를 가져오는 코드 (현재 날짜를 사용)
@@ -78,4 +96,7 @@ function fetchData() {
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = '데이터를 가져오는 중 오류가 발생했습니다.';
     });
-  }
+}
+</script>
+</body>
+</html>
